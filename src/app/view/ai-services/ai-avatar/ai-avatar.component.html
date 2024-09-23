@@ -1,0 +1,29 @@
+<div class="ai-video-controls-container vh-100 d-flex align-items-end">
+    <video #video_ref id="video" autoplay></video>
+    <div class="spinner" [ngClass]="{ loading: isLoading }"></div>
+    <div class="form p-3 flex-grow-1">
+        <div class="container">
+            <form id="message-form" class="d-flex align-items-cener">
+                <div class="me-2">
+                    <audio-recorder
+                        #recorder
+                        [disabled]="isLoading"
+                        [isProcessing]="isProcessing"
+                        (onRecordReady)="handleSpeechToText($event)"
+                        (onStopRecording)="stopRecording()"
+                        [recordOnHold]="true"
+                    ></audio-recorder>
+                </div>
+                @if(recorder.isRecording) {
+                <input
+                    type="text"
+                    id="user-message"
+                    [formControl]="control"
+                    class="form-control-sm form-control"
+                    placeholder="Type your message..."
+                />
+                }
+            </form>
+        </div>
+    </div>
+</div>

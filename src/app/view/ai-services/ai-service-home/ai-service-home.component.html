@@ -1,0 +1,40 @@
+<div class="container py-5">
+    <div class="row">
+        <h1 class="text-center mx-auto col-12 text-white mb-5">
+            Welcome to AI Solutions
+        </h1>
+        @for(service of services; track service.id) {
+        <div class="mx-auto col-12 col-sm-6">
+            <div class="card h-100">
+                <div class="card-header d-flex align-items-center">
+                    <h5 class="m-0 me-auto">
+                        {{ service.title }}
+                    </h5>
+                    <i
+                        [class]="
+                            'text-primary mdi mdi-24px mdi-' + service.icon
+                        "
+                    ></i>
+                </div>
+                <div class="card-body h-100 d-flex flex-column">
+                    <p
+                        style="
+                            font-size: 14px;
+                            min-height: 100px;
+                            text-align: justify;
+                        "
+                    >
+                        {{ service.description }}
+                    </p>
+                    <button
+                        [routerLink]="service.route"
+                        class="d-block w-100 btn btn-outline-primary mt-auto btn-sm px-4"
+                    >
+                        Try it out
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div
+    class="avatar-container rounded-circle position-relative"
+    style="box-shadow: 0px 1px 13px #00000080"
+>
+    <div
+        [hidden]="type == 'outer' || !AiAvatarButtonComponent.toggled"
+        class="avatar-popup-container"
+    >
+        <div class="card h-100">
+            <div
+                class="card-header d-flex align-items-center justify-lg-content-between"
+            >
+                <h6 class="m-0">Reactive Avatar</h6>
+            </div>
+            <div class="card-body p-0">
+                <video #video_ref id="video" autoplay controls></video>
+            </div>
+        </div>
+    </div>
+    <div class="spinner" [ngClass]="{ processing: isProcessing }"></div>
+    <button
+        [tooltip]="
+            AiAvatarButtonComponent.toggled
+                ? 'Close Avatar'
+                : type == 'outer'
+                ? 'Open new screen Avatar'
+                : 'Open Avatar'
+        "
+        [disabled]="
+            isProcessing ||
+            (type == 'inner' && isActiveOuterScreen) ||
+            (type == 'outer' && AiAvatarButtonComponent.toggled)
+        "
+        [ngClass]="{
+            disabled:
+                isProcessing ||
+                (type == 'inner' && isActiveOuterScreen) ||
+                (type == 'outer' && AiAvatarButtonComponent.toggled)
+        }"
+        (click)="toggleVideo()"
+        class="btn circle border-0"
+        type="button"
+    >
+        <i
+            class="mdi mdi-face-agent"
+            [style]="
+                type == 'outer'
+                    ? 'font-size: 14px; position: relative; left: 4px; top: 0px;'
+                    : ''
+            "
+        ></i>
+        @if(type == 'outer') {
+        <i class="mdi mdi-timeline-outline new-tap-icon"></i>
+        }
+    </button>
+</div>

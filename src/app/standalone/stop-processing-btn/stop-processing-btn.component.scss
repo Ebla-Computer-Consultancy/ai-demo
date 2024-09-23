@@ -1,0 +1,22 @@
+.stop-processing-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    white-space: nowrap;
+    transition: 0.4s;
+    visibility: hidden;
+    &.active {
+        opacity: 0.5;
+        visibility: visible;
+    }
+    &:hover {
+        opacity: 1;
+    }
+    &.top {
+        top: -42px;
+    }
+    &.bottom {
+        bottom: -42px;
+    }
+}

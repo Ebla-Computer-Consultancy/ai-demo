@@ -1,0 +1,123 @@
+.avatar-container {
+    height: 34px;
+    width: 34px;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .avatar-popup-container {
+        z-index: 1;
+        position: absolute;
+        bottom: 0;
+        right: 68px;
+        &::after {
+            content: "";
+            display: block;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-width: var(--bs-border-width);
+            border-color: var(--bs-border-color);
+            border-style: var(--bs-border-style);
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+            position: absolute;
+            bottom: 12px;
+            right: -9px;
+            clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%);
+        }
+        .card-body {
+            background: #c1c1c1 !important;
+        }
+    }
+    video {
+        width: 380px;
+        height: 300px;
+    }
+    .circle {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        opacity: 1;
+        transition: 0.5s;
+        box-shadow: 0 0px 2px #00000024, 0 1px 18px #0000001f,
+            0 3px 5px -1px #0002;
+
+        i {
+            color: #b2b1b1;
+            font-size: 23px;
+            transition: 0.9s;
+        }
+    }
+
+    .spinner {
+        width: 41px;
+        height: 41px;
+        border-radius: 50%;
+        position: absolute;
+        transform: rotate(0);
+        background: linear-gradient(
+            to left,
+            #dede4e,
+            transparent,
+            transparent,
+            #70f570,
+            #8c8cff,
+            transparent,
+            transparent,
+            #dede4e
+        );
+        animation: spin 2s linear infinite 0.5s;
+        opacity: 0;
+        &.processing {
+            opacity: 1;
+        }
+    }
+    .new-tap-icon {
+        position: absolute;
+        font-size: 26px !important;
+        top: -2px;
+    }
+}
+.disabled {
+    background: #dfd9d9 !important;
+}
+@media screen and (max-width: 767px) {
+    .avatar-container {
+        .avatar-popup-container {
+            right: auto;
+            left: 0;
+            bottom: 50px;
+            &::after {
+                right: auto;
+                left: 12px;
+                transform: rotate(135deg);
+                bottom: -9px;
+            }
+            .card {
+                .card-header {
+                    white-space: nowrap;
+                }
+            }
+        }
+        video {
+            width: 260px;
+            height: 260px;
+        }
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

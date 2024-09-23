@@ -1,0 +1,37 @@
+<div
+    class="mic-container rounded-circle position-relative"
+    style="box-shadow: 0px 1px 13px #00000080"
+>
+    <stop-processing-btn
+        [active]="isRecording && !recordOnHold"
+        (onClick)="canceledRecording()"
+    ></stop-processing-btn>
+    <div class="spinner" [ngClass]="{ processing: isProcessing }"></div>
+    <button
+        [tooltip]="!isRecording ? 'Start Recording' : 'Stop Recording'"
+        class="btn circle border-0"
+        type="button"
+        [disabled]="disabled"
+        [ngClass]="{disabled}"
+        (click)="
+            !isRecording && !recordOnHold ? startRecording() : stopRecording()
+        "
+        (mousedown)="recordOnHold && startRecording()"
+        (mouseup)="recordOnHold && stopRecording()"
+        (touchstart)="startRecording()"
+        (touchend)="stopRecording()"
+        [ngClass]="{
+            active: isRecording
+        }"
+    >
+        <i class="mdi mdi-microphone"></i>
+    </button>
+    <alert
+        [isOpen]="showMessageEmptyPopup"
+        type="danger py-0 px-3 rounded-pill"
+        class="text-nowrap position-absolute"
+        style="z-index: 2; top: -40px"
+    >
+        <small style="font-size: 12px"> No speech recognized </small>
+    </alert>
+</div>

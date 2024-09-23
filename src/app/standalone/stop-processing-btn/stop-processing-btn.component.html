@@ -1,0 +1,9 @@
+<button
+    class="btn btn-secondary px-3 border border-light btn-sm d-flex align-items-center rounded-pill stop-processing-btn"
+    [class]="position"
+    [ngClass]="{ active: active }"
+    type="button"
+    (click)="onClick.emit()"
+>
+    <small> Stop Processing <i class="ms-1 mdi mdi-pause"></i> </small>
+</button>

@@ -1,0 +1,148 @@
+<div
+    style="z-index: 3"
+    class="position-relative d-flex flex-column justify-content-center align-items-center"
+    [style]="!results.length ? 'height: calc(100vh - 9rem - 90px)' : ''"
+>
+    <h5 class="text-white mb-4">
+        Empowering Insights, Unleashing Intelligence!
+    </h5>
+
+    <form class="col-12 col-md-6 d-flex mb-5 position-relative">
+        <div class="me-2">
+            <audio-recorder
+                #recorder
+                [disabled]="service.loading || aiSpeechToTextService.loading"
+                [isProcessing]="aiSpeechToTextService.loading"
+                (onRecordReady)="handleSpeechToText($event)"
+                (onStopRecording)="stopRecording()"
+            ></audio-recorder>
+        </div>
+        <div class="input-group" style="box-shadow: 0px 1px 13px #00000080">
+            <input
+                type="text"
+                [formControl]="control"
+                class="form-control rounded-0 rounded-start"
+                placeholder="Search..."
+            />
+            <div class="input-group-prepend">
+                <button
+                    [disabled]="
+                        service.loading || aiSpeechToTextService.loading
+                    "
+                    type="button"
+                    (click)="search$.next(1)"
+                    class="rounded-0 rounded-end btn btn-secondary text-white"
+                >
+                    <i class="mdi mdi-magnify"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    @if(service.loading) {
+    <div class="loading-text text-white">
+        Processing
+        <app-loading [color]="'white'"></app-loading>
+    </div>
+    }
+</div>
+
+<div class="container py-3">
+    @if(results.length) {
+    <span class="badge bg-secondary">Search: "{{ searchKeyWord }}"</span>
+    <span class="badge bg-secondary ms-2">Results: {{ total_count }}</span>
+    }
+    <div class="pt-3">
+        <ul class="list-group bg-transparent">
+            @for(search_result of results; track search_result.chunk_id) {
+            <li
+                class="list-group-item py-3"
+                [ngClass]="{
+                    rtl: isRTL(search_result.chunk),
+                    ltr: !isRTL(search_result.chunk)
+                }"
+            >
+                <a href="{{ search_result.ref_url }}" target="_blank">{{
+                    search_result.title
+                }}</a>
+                @if(search_result['@search.highlights']) {
+                @if(search_result['@search.highlights']['merged_content'].length
+                > 0) {
+                <div>
+                    @for(highlight of
+                    search_result['@search.highlights']['merged_content']; track
+                    highlight) {
+                    <p>{{ highlight }}</p>
+                    }
+                </div>
+                } @if(search_result['@search.highlights']['imageCaption'].length
+                > 0) {
+                <div>
+                    @for(highlight of
+                    search_result['@search.highlights']['imageCaption']; track
+                    highlight) {
+                    <p>Image caption: {{ highlight }}</p>
+                    }
+                </div>
+                } }
+                <div
+                    class="mt-3 mb-1"
+                    style="text-align: justify; overflow-wrap: break-word"
+                >
+                    {{ search_result.chunk.slice(0, 400) }}
+                    @if(completion.hidden) {
+                    {{ "..." }}
+                    }
+                    <span hidden #completion>
+                        {{
+                            search_result.chunk.slice(
+                                400,
+                                search_result.chunk.length
+                            )
+                        }}
+                    </span>
+                    @if(search_result.chunk.length > 400) {
+                    <button
+                        class="btn btn-link"
+                        (click)="completion.hidden = !completion.hidden"
+                    >
+                        @if(completion.hidden) {
+                        {{
+                            isRTL(search_result.chunk)
+                                ? "عرض المزيد"
+                                : "Show more"
+                        }}
+                        } @else {
+                        {{
+                            isRTL(search_result.chunk) ? "عرض اقل" : "Show less"
+                        }}
+                        }
+                    </button>
+                    }
+                </div>
+                @if(environment.debugMode) {
+                <div>
+                    <span class="badge bg-primary"
+                        ><strong>Score: </strong>
+                        {{ search_result["@search.score"] }}</span
+                    >
+                    <span class="badge bg-primary me-2"
+                        ><strong>Reranker Score: </strong>
+                        {{ search_result["@search.reranker_score"] }}</span
+                    >
+                </div>
+                }
+            </li>
+            }
+        </ul>
+        @if(total_count) {
+        <pagination
+            class="mt-3 justify-content-center"
+            [disabled]="service.loading || aiSpeechToTextService.loading"
+            [totalItems]="total_count"
+            [(ngModel)]="currentPage"
+            [maxSize]="5"
+            (pageChanged)="search$.next($event.page)"
+        ></pagination>
+        }
+    </div>
+</div>

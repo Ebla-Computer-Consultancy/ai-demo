@@ -1,0 +1,48 @@
+video {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: #c1c1c1 !important;
+}
+.ai-video-controls-container {
+    position: relative;
+    .spinner {
+        width: 41px;
+        height: 41px;
+        position: absolute;
+        top: calc(50% - 20px);
+        left: calc(50% - 20px);
+        z-index: 1;
+        border-radius: 50%;
+        border: solid 3px transparent;
+        border-left-color: var(--bs-primary);
+        border-right-color: var(--bs-primary);
+        animation: spin 2s linear infinite 0.5s;
+        opacity: 0;
+        &.loading {
+            opacity: 1;
+        }
+        span {
+            display: block;
+            width: 37px;
+            height: 37px;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            background: red;
+            border-radius: 50%;
+        }
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

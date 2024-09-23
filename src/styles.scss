@@ -1,0 +1,53 @@
+// required to get $orange variable
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "ngx-bootstrap/datepicker/bs-datepicker.css";
+
+$primary: #8a1538; // set the $primary variable
+
+// merge with existing $theme-colors map
+$theme-colors: map-merge(
+    $theme-colors,
+    (
+        "primary": $primary,
+    )
+);
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/scss/bootstrap.scss";
+@import "@mdi/font/css/materialdesignicons.min.css";
+* {
+    font-family: "roboto";
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+    z-index: 1;
+}
+.page-link {
+    color: var(--bs-secondary) !important;
+}
+.page-link.active,
+.active > .page-link {
+    background: var(--bs-secondary) !important;
+    border-color: var(--bs-secondary) !important;
+    color: white !important;
+}
+
+.rtl {
+    text-align: right;
+    direction: rtl;
+}
+.ltr {
+    text-align: left;
+    direction: ltr;
+}
+.tooltip {
+    white-space: nowrap;
+    font-size: 12px;
+}
