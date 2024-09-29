@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, finalize, map, Observable } from 'rxjs';
 import { IChatMessageResult } from '../interfaces/i-chat-message-result';
 import { Message } from '../models/message';
-// import { environment } from '../../environments/environment.prod';
+// import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root',

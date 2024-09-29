@@ -8,14 +8,13 @@ const meccLogo =
     'assets/images/Primary-Logo-Bilingual-RGB_Ministry-of-Environment-and-Climate-Change.png';
 const qrepLogo = 'assets/images/qrep-newlogo-colored.png';
 export const environment = {
-    production: true,
+    production: false,
     endpoint: deployedEndpoint,
-    debugMode: false,
+    debugMode: true,
     logo: qrepLogo,
     STREAM_ID_STORAGE_KEY: 'streamId',
     MESSAGE_TEXT_KEY: 'message_text',
     AVATAR_IS_RECORDING_KEY: 'is_recording',
     OUTER_AVATAR_IS_ACTIVE_KEY: 'is_active_outer_avatar',
-    // base: '',
-    base: '/ai-projects',
+    base: '',
 };

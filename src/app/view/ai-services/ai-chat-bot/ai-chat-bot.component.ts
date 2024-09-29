@@ -23,7 +23,7 @@ import { TextWriterAnimatorDirective } from '../../../directives/text-writer-ani
 import { formateString, isRTL } from '../../../utils';
 import { StopProcessingBtnComponent } from '../../../standalone/stop-processing-btn/stop-processing-btn.component';
 import { AiAvatarButtonComponent } from '../../../standalone/ai-avatar-button/ai-avatar-button.component';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @Component({

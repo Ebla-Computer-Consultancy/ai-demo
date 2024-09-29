@@ -15,7 +15,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AiAvatarService } from '../../services/ai-avatar.service';
 import { StreamResult } from '../../models/stream-result';
 import { catchError, finalize, from, map, switchMap } from 'rxjs';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 

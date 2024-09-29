@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 export abstract class ApiServiceBaseModel {
     protected abstract http: HttpClient;

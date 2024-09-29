@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { filter } from 'rxjs';
 
 @Component({

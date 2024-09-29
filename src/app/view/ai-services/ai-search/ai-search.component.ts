@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { SearchResult } from '../../../models/search-result';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { AudioRecorderComponent } from '../../../standalone/audio-recorder/audio-recorder.component';
 import { AiSpeechToTextService } from '../../../services/ai-speech-to-text.service';
 import { LoadingComponent } from '../../../standalone/loading/loading.component';

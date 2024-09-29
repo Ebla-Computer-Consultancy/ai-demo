@@ -18,7 +18,7 @@ import {
 import { StopProcessingBtnComponent } from '../stop-processing-btn/stop-processing-btn.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AlertModule } from 'ngx-bootstrap/alert';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 @Component({
     selector: 'audio-recorder',
     standalone: true,

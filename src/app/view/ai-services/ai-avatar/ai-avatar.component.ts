@@ -13,7 +13,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { AiAvatarService } from '../../../services/ai-avatar.service';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
