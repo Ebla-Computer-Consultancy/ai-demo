@@ -63,7 +63,7 @@ export class AiAvatarComponent implements AfterViewInit, OnInit, OnDestroy {
         this.isLoading = true;
         this._cd.detectChanges();
         this.service
-            .startStream()
+            .startStream(true)
             .pipe(
                 switchMap((stream: StreamResult) => {
                     const { webrtcData } = stream.data;

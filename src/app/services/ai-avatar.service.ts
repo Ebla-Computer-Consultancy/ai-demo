@@ -9,12 +9,19 @@ import { StreamResult } from '../models/stream-result';
 export class AiAvatarService extends ApiServiceBaseModel {
     protected override http: HttpClient = inject(HttpClient);
     tag: string = 'common/';
+
     constructor() {
         super('avatar');
     }
 
-    startStream() {
-        return this.http.post<StreamResult>(this.baseUrl + '/start-stream', {});
+    startStream(size: boolean = false) {
+        return this.http.post<StreamResult>(this.baseUrl + '/start-stream', {}, {
+            params: {
+                ...(size ? {
+                    size: 'life-size',
+                } : {})
+            }
+        });
     }
 
     sendCandidate(streamId: string, candidate: any) {
@@ -22,14 +29,17 @@ export class AiAvatarService extends ApiServiceBaseModel {
             candidate: candidate,
         });
     }
+
     sendAnswer(streamId: string, answer: any) {
         return this.http.put(`${this.baseUrl}/send-answer/${streamId}`, {
             answer: answer,
         });
     }
+
     closeStream(streamId: string) {
         return this.http.delete(`${this.baseUrl}/close-stream/${streamId}`);
     }
+
     renderText(streamId: string, text: string) {
         return this.http.post(`${this.baseUrl}/render-text/${streamId}`, {
             text,
