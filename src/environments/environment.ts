@@ -11,7 +11,7 @@ export const environment = {
     production: true,
     endpoint: deployedEndpoint,
     debugMode: false,
-    logo: qatardiarLogo,
+    logo: qrepLogo,
     STREAM_ID_STORAGE_KEY: 'streamId',
     MESSAGE_TEXT_KEY: 'message_text',
     AVATAR_IS_RECORDING_KEY: 'is_recording',
