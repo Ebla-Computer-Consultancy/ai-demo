@@ -2,6 +2,7 @@ const endpoint = 'http://localhost:7071/api/v1/';
 const deployedEndpoint = 'https://ebla-ai-demo-002.azurewebsites.net/api/v1/';
 const reraEndpoint = 'https://rera-api.azurewebsites.net/api/v1/';
 
+const phccLogo = 'assets/images/nlogo.svg';
 const qatardiarLogo =
     'https://www.qataridiar.com/themes/custom/qataridiar/logo.svg';
 const meccLogo =
@@ -11,7 +12,7 @@ export const environment = {
     production: false,
     endpoint: deployedEndpoint,
     debugMode: true,
-    logo: qrepLogo,
+    logo: phccLogo,
     STREAM_ID_STORAGE_KEY: 'streamId',
     MESSAGE_TEXT_KEY: 'message_text',
     AVATAR_IS_RECORDING_KEY: 'is_recording',
