@@ -47,6 +47,7 @@ export class AiChatBotComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('chat_container') chat_container!: ElementRef;
     @ViewChild('chat_body') chat_body!: ElementRef;
     @ViewChild('recorder') recorder!: AudioRecorderComponent;
+    toggled = false;
     service = inject(AiChatBotService);
     aiSpeechToTextService: AiSpeechToTextService = inject(
         AiSpeechToTextService

@@ -1,182 +1,195 @@
-<div
-    class="d-flex flex-column"
-    [ngClass]="{
-        'align-items-end': activeAvatar,
-        'align-items-center': !activeAvatar
-    }"
->
+<div class="chat-bot-button">
+    <button class="btn btn-primary toggle-button" (click)="toggled = !toggled">
+        <i class="mdi mdi-robot-happy mdi-24px"></i>
+    </button>
     <div
-        class="card col-12 col-md-6"
+        class="d-flex flex-column avatar-card-container"
         [ngClass]="{
-            fullscreen: fullScreen,
+            'align-items-end': activeAvatar,
+            'align-items-center': !activeAvatar,
+            toggled: toggled
         }"
-        [style]="
-            'min-height: 300px; ' +
-            (!fullScreen ? 'height: calc(100vh - 90px - 6rem);' : '')
-        "
     >
         <div
-            class="card-header d-flex justify-content-between align-items-center"
+            class="card col-12"
+            [ngClass]="{
+                fullscreen: fullScreen,
+            }"
+            [style]="
+                'min-height: 300px; ' +
+                (!fullScreen ? 'height: calc(100vh - 90px - 6rem);' : '')
+            "
         >
-            <span>
-                <i class="text-primary mdi mdi-robot-happy mdi-24px"></i>
-                ChatGPT Demo
-            </span>
-            <button
-                class="btn btn-outline-primary"
-                (click)="fullScreen = !fullScreen"
+            <div
+                class="card-header d-flex justify-content-between align-items-center"
             >
-                <i
-                    class="mdi mdi-arrow-expand-all"
-                    [ngClass]="{
-                        'mdi-arrow-expand-all': !fullScreen,
-                        'mdi-arrow-collapse-all': fullScreen
-                    }"
-                ></i>
-            </button>
-        </div>
-        <div
-            class="text-center card-body overflow-auto"
-            #chat_body
-            [style]="!fullScreen ? 'max-height: 100%' : ''"
-        >
-            @if(!this.service.messageHistory.length) {
-            <small class="fw-bold"> Let's chat with me to help you. </small>
-            }
-            <div class="chat-container" #chat_container>
-                @for(message of this.service.messageHistory; track
-                message.content) {
-                <div [class]="'message ' + message.role + '-message'">
-                    <div
-                        class="message-content"
+                <span>
+                    <i class="text-primary mdi mdi-robot-happy mdi-24px"></i>
+                    Chat bot
+                </span>
+                <button
+                    class="btn btn-outline-primary"
+                    (click)="fullScreen = !fullScreen"
+                >
+                    <i
+                        class="mdi mdi-arrow-expand-all"
                         [ngClass]="{
-                            rtl: isRTL(message.content),
-                            ltr: !isRTL(message.content)
+                            'mdi-arrow-expand-all': !fullScreen,
+                            'mdi-arrow-collapse-all': fullScreen
                         }"
-                    >
-                        @if(message.role === 'assistant') {
-                        <span
-                            TextWriterAnimator
-                            (animating)="animating = $event"
-                            [text]="message.content"
+                    ></i>
+                </button>
+            </div>
+            <div
+                class="text-center card-body overflow-auto"
+                #chat_body
+                [style]="!fullScreen ? 'max-height: 100%' : ''"
+            >
+                @if(!this.service.messageHistory.length) {
+                <small class="fw-bold"> Let's chat with me to help you. </small>
+                }
+                <div class="chat-container" #chat_container>
+                    @for(message of this.service.messageHistory; track
+                    message.content) {
+                    <div [class]="'message ' + message.role + '-message'">
+                        <div
+                            class="message-content"
+                            [ngClass]="{
+                                rtl: isRTL(message.content),
+                                ltr: !isRTL(message.content)
+                            }"
                         >
-                        </span>
-                        } @else {
-                        <span [innerHtml]="message.content"> </span>
-                        } @if(message.context &&
-                        message.context.citations.length) {
-                        <div>
-                            <div
-                                class="icon-with-title"
-                                (click)="linkRef.hidden = !linkRef.hidden"
+                            @if(message.role === 'assistant') {
+                            <span
+                                TextWriterAnimator
+                                (animating)="animating = $event"
+                                [text]="message.content"
                             >
-                                <i
-                                    class="mdi"
-                                    [ngClass]="{
-                                        'mdi-chevron-down': linkRef.hidden,
-                                        'mdi-chevron-up': !linkRef.hidden
-                                    }"
-                                ></i>
-                                <span class="title">References</span>
-                            </div>
-                            <div #linkRef hidden>
-                                @for(link of message.context.citations; track
-                                link.filepath) {
-                                <div dir="auto">
-                                    <div class="d-inline">
-                                        <small class="px-1 text-primary">
-                                            doc {{ $index + 1 }}
-                                            <i class="mdi mdi-link-variant"></i
-                                        ></small>
-                                    </div>
-                                    <a
-                                        class="d-inline citation-link"
-                                        style="cursor: pointer"
-                                        (click)="openDocModal(docModal, link)"
-                                        >{{ link.filepath }}</a
-                                    >
+                            </span>
+                            } @else {
+                            <span [innerHtml]="message.content"> </span>
+                            } @if(message.context &&
+                            message.context.citations.length) {
+                            <div>
+                                <div
+                                    class="icon-with-title"
+                                    (click)="linkRef.hidden = !linkRef.hidden"
+                                >
+                                    <i
+                                        class="mdi"
+                                        [ngClass]="{
+                                            'mdi-chevron-down': linkRef.hidden,
+                                            'mdi-chevron-up': !linkRef.hidden
+                                        }"
+                                    ></i>
+                                    <span class="title">References</span>
                                 </div>
-                                }
+                                <div #linkRef hidden>
+                                    @for(link of message.context.citations;
+                                    track link.filepath) {
+                                    <div dir="auto">
+                                        <div class="d-inline">
+                                            <small class="px-1 text-primary">
+                                                doc {{ $index + 1 }}
+                                                <i
+                                                    class="mdi mdi-link-variant"
+                                                ></i
+                                            ></small>
+                                        </div>
+                                        <a
+                                            class="d-inline citation-link"
+                                            style="cursor: pointer"
+                                            (click)="
+                                                openDocModal(docModal, link)
+                                            "
+                                            >{{ link.filepath }}</a
+                                        >
+                                    </div>
+                                    }
+                                </div>
                             </div>
+                            }
                         </div>
-                        }
                     </div>
+                    }
+                </div>
+                @if(this.service.loading) {
+                <div class="loading-text">
+                    <app-loading></app-loading>
                 </div>
                 }
             </div>
-            @if(this.service.loading) {
-            <div class="loading-text">
-                <app-loading></app-loading>
-            </div>
-            }
-        </div>
-        <div class="card-footer">
-            <form id="message-form">
-                <div class="input-group position-relative">
-                    <div
-                        class="d-flex input-group-append position-relative"
-                        style="top: -2px"
-                    >
-                        <div class="me-2">
-                            <ai-avatar-button
-                                (onToggle)="activeAvatar = $event"
-                            ></ai-avatar-button>
+            <div class="card-footer">
+                <form id="message-form">
+                    <div class="input-group position-relative">
+                        <div
+                            class="d-flex input-group-append position-relative"
+                            style="top: -2px"
+                        >
+                            <div class="me-2">
+                                <ai-avatar-button
+                                    (onToggle)="activeAvatar = $event"
+                                ></ai-avatar-button>
+                            </div>
+                            <div class="me-2">
+                                <ai-avatar-button
+                                    [type]="'outer'"
+                                ></ai-avatar-button>
+                            </div>
+                            <div class="me-2">
+                                <audio-recorder
+                                    #recorder
+                                    [disabled]="
+                                        service.loading ||
+                                        aiSpeechToTextService.loading
+                                    "
+                                    [isProcessing]="
+                                        aiSpeechToTextService.loading
+                                    "
+                                    (onRecordReady)="handleSpeechToText($event)"
+                                    (onStopRecording)="stopRecording()"
+                                ></audio-recorder>
+                            </div>
                         </div>
-                        <div class="me-2">
-                            <ai-avatar-button
-                                [type]="'outer'"
-                            ></ai-avatar-button>
-                        </div>
-                        <div class="me-2">
-                            <audio-recorder
-                                #recorder
+                        <stop-processing-btn
+                            [active]="this.service.loading || animating"
+                            (onClick)="stopAnimation()"
+                        ></stop-processing-btn>
+                        <input
+                            type="text"
+                            id="user-message"
+                            [formControl]="control"
+                            class="form-control-sm form-control rounded-0 rounded-start"
+                            placeholder="Type your message..."
+                        />
+                        <div class="input-group-append">
+                            <button
+                                class="rounded-0 rounded-end btn btn-sm btn-primary"
                                 [disabled]="
-                                    service.loading ||
+                                    this.service.loading ||
                                     aiSpeechToTextService.loading
                                 "
-                                [isProcessing]="aiSpeechToTextService.loading"
-                                (onRecordReady)="handleSpeechToText($event)"
-                                (onStopRecording)="stopRecording()"
-                            ></audio-recorder>
+                                (click)="ask$.next()"
+                                type="button"
+                            >
+                                <i class="mdi mdi-send"></i>
+                            </button>
+                            <button
+                                id="clear-chat"
+                                type="button"
+                                (click)="clear()"
+                                class="btn btn-sm btn-outline-secondary ms-2"
+                            >
+                                Clear
+                            </button>
                         </div>
                     </div>
-                    <stop-processing-btn
-                        [active]="this.service.loading || animating"
-                        (onClick)="stopAnimation()"
-                    ></stop-processing-btn>
-                    <input
-                        type="text"
-                        id="user-message"
-                        [formControl]="control"
-                        class="form-control-sm form-control rounded-0 rounded-start"
-                        placeholder="Type your message..."
-                    />
-                    <div class="input-group-append">
-                        <button
-                            class="rounded-0 rounded-end btn btn-sm btn-primary"
-                            [disabled]="
-                                this.service.loading ||
-                                aiSpeechToTextService.loading
-                            "
-                            (click)="ask$.next()"
-                            type="button"
-                        >
-                            <i class="mdi mdi-send"></i>
-                        </button>
-                        <button
-                            id="clear-chat"
-                            type="button"
-                            (click)="clear()"
-                            class="btn btn-sm btn-outline-secondary ms-2"
-                        >
-                            Clear
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 <ng-template #docModal>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Citation Details</h4>
