@@ -1,7 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit, viewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
 import { filter } from 'rxjs';
+import { AppStore } from "../../stores/app.store";
+import { getState } from "@ngrx/signals";
+import { NgForm } from "@angular/forms";
 
 @Component({
     selector: 'app-ai-services',
@@ -9,9 +11,13 @@ import { filter } from 'rxjs';
     styleUrls: ['./ai-services.component.scss'],
 })
 export class AiServicesComponent implements OnInit {
+    form = viewChild.required<NgForm>('form')
     router = inject(Router);
-    logo = environment.logo;
+    store = inject(AppStore)
+    settings = getState(this.store)
+    clonedSettings = structuredClone(this.settings)
     collapsed: boolean = true;
+    hideSettings: boolean = true;
     activatedRoute!: string;
     navLinks = [
         {
@@ -26,8 +32,14 @@ export class AiServicesComponent implements OnInit {
             route: '/ai-service/ai-chat-bot',
             title: 'Chat Bot',
         },
+        {
+            route: '',
+            title: 'Chat Bot',
+        },
     ];
-    constructor() {}
+
+    constructor() {
+    }
 
     ngOnInit() {
         this.router.events
@@ -35,6 +47,37 @@ export class AiServicesComponent implements OnInit {
             .subscribe((data) => {
                 this.activatedRoute = data.url;
             });
+
+
+        this.form().valueChanges!.subscribe((value)=>{
+            if(this.clonedSettings.preview){
+                this.settings = value
+            }
+        })
+    }
+
+    toggleSettings($event: Event) {
+        $event.preventDefault();
+        this.hideSettings = !this.hideSettings;
+    }
+
+    saveSettings() {
+        this.store.updateState(this.clonedSettings)
+        this.settings = this.clonedSettings
+        this.hideSettings = true
+    }
+
+
+    @HostListener('window:keydown.Escape', ['$event'])
+    closeIfOpened(){
+        if(!this.hideSettings){
+            this.hideSettings = true
+        }
+    }
+
+    cancelSettings() {
+        this.hideSettings = true
+        this.clonedSettings = this.settings = getState(this.store)
     }
 }
 

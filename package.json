@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
     "@mdi/font": "^7.4.47",
+    "@ngrx/signals": "^18.1.0",
     "assert": "^2.1.0",
     "bootstrap": "^5.3.3",
     "microsoft-cognitiveservices-speech-sdk": "^1.40.0",

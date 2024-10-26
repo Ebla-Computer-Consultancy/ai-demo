@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AiChatBotComponent } from './ai-chat-bot/ai-chat-bot.component';
 import { AiSearchComponent } from './ai-search/ai-search.component';
 import { AiServiceHomeComponent } from './ai-service-home/ai-service-home.component';
+import { FormsModule } from "@angular/forms";
 @NgModule({
     imports: [
         CommonModule,
@@ -37,6 +38,7 @@ import { AiServiceHomeComponent } from './ai-service-home/ai-service-home.compon
                 ],
             },
         ]),
+        FormsModule,
     ],
     declarations: [AiServicesComponent],
 })

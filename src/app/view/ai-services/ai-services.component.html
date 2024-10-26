@@ -1,58 +1,111 @@
-<main class="min-vh-100">
+<main [style.background-color]="settings.backgroundColor"  class="min-vh-100">
+    <div [hidden]="hideSettings"
+         style="z-index:100;width:500px;left:50%;top:50%;transform:translate(-50%,-50%);padding:20px"
+         class="shadow-lg bg-white rounded-4 position-absolute">
+        <h1>Settings</h1>
+        <div>
+            <form #form="ngForm">
+                <div class="mb-3">
+                    <label for="logoUrl" class="form-label">Logo Url</label>
+                    <input name="logoUrl" [(ngModel)]="clonedSettings.logoUrl" type="text" class="form-control"
+                           id="logoUrl"
+                           placeholder="assets/images/nlogo.svg">
+                </div>
+                <div class="mb-3">
+                    <label for="backgroundUrl" class="form-label">background Url</label>
+                    <input name="backgroundUrl" [(ngModel)]="clonedSettings.backgroundUrl" type="text"
+                           class="form-control" id="backgroundUrl"
+                           placeholder="https://www.phcc.gov.qa/videos/default-source/home-video-library/16-x-9---30-seconds---with-music---english.mp4">
+                </div>
+
+                <div class="mb-3">
+                    <input name="backgroundColor" [(ngModel)]="clonedSettings.backgroundColor"  type="color"
+                           id="backgroundColor">
+                    <label  for="backgroundColor">&nbsp; background color</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input name="isVideo" [(ngModel)]="clonedSettings.isVideo" class="form-check-input" type="checkbox"
+                           role="switch"
+                           id="isVideo">
+                    <label class="form-check-label" for="isVideo">is Background Video?</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input name="preview" [(ngModel)]="clonedSettings.preview" class="form-check-input" type="checkbox"
+                           role="switch"
+                           id="preview">
+                    <label class="form-check-label" for="preview">Live preview</label>
+                </div>
+            </form>
+        </div>
+        <div class="d-flex gap-2 justify-content-end">
+            <button class="btn btn-primary" (click)="saveSettings()">Save</button>
+            <button class="btn btn-secondary" (click)="cancelSettings()">Cancel</button>
+        </div>
+    </div>
     <!-- style="background-color: var(--bs-primary)" -->
-    <video
-        width="100%"
-        height="100%"
-        class="phcc-video sf.mp4 position-fixed"
-        autoplay
-        [muted]="'muted'"
-        loop
-    >
-        <source
-            src="https://www.phcc.gov.qa/videos/default-source/home-video-library/16-x-9---30-seconds---with-music---english.mp4"
-            type="video/mp4"
-        />
-    </video>
+
+    @if (settings.isVideo) {
+        <video
+                width="100%"
+                height="100%"
+                class="phcc-video sf.mp4 position-fixed"
+                autoplay
+                [muted]="'muted'"
+                loop
+        >
+
+            <source
+                    [src]="settings.backgroundUrl"
+                    type="video/mp4"
+            />
+        </video>
+    } @else {
+        <div [style.background-image]="'url('+settings.backgroundUrl+')'"
+             style="position:absolute;width:100vw;height:100vh;background-size: cover;background-position: center center"></div>
+    }
     <nav
-        class="navbar navbar-expand-lg navbar-light bg-light"
-        style="box-shadow: 0px 2px 10px #000"
+            class="navbar navbar-expand-lg navbar-light bg-light"
+            style="box-shadow: 0 2px 10px #000"
     >
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img
-                    [src]="logo"
-                    alt="Ebla corp"
-                    height="34"
-                    class="d-inline-block align-text-top"
+                        [src]="settings.logoUrl"
+                        alt="Ebla corp"
+                        height="80"
+                        class="d-inline-block align-text-top"
                 />
             </a>
             <!-- <h5 class="m-0"><strong> Qatari Diar AI</strong></h5> -->
             <button
-                class="navbar-toggler"
-                type="button"
-                (click)="collapsed = !collapsed"
+                    class="navbar-toggler"
+                    type="button"
+                    (click)="collapsed = !collapsed"
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div
-                class="navbar-collapse collapse"
-                [ngClass]="{ 'd-block': !collapsed }"
+                    class="navbar-collapse collapse"
+                    [ngClass]="{ 'd-block': !collapsed }"
             >
                 <ul class="navbar-nav ms-auto">
-                    @for(navLink of navLinks; track navLink.route) {
-                    <li class="nav-item">
-                        <a
-                            [routerLink]="navLink.route"
-                            [ngClass]="{
+                    @for (navLink of navLinks; track navLink.route) {
+                        <li class="nav-item">
+                            <a
+                                    [routerLink]="navLink.route"
+                                    [ngClass]="{
                                 'text-primary fw-bold':
                                     activatedRoute == navLink.route
                             }"
-                            class="nav-link"
+                                    class="nav-link"
                             >{{ navLink.title }}</a
-                        >
-                    </li>
+                            >
+                        </li>
                     }
+                    <li class="nav-item">
+                        <a class="nav-link" (click)="toggleSettings($event)" href="#">Settings</a>
+                    </li>
                 </ul>
             </div>
         </div>

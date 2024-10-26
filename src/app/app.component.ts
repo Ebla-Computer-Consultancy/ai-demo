@@ -1,6 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { AppStore } from "./stores/app.store";
 
 @Component({
     selector: 'app-root',
@@ -10,5 +11,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-    ngOnInit() {}
+    store = inject(AppStore)
+    ngOnInit() {
+
+    }
 }
