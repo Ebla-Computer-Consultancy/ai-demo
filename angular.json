@@ -39,7 +39,7 @@
             "scripts": [
               "node_modules/microsoft-cognitiveservices-speech-sdk/distrib/browser/microsoft.cognitiveservices.speech.sdk.bundle-min.js"
             ],
-            "allowedCommonJsDependencies": ["moment", "recordrtc"]
+            "allowedCommonJsDependencies": ["moment", "recordrtc","microsoft-cognitiveservices-speech-sdk"]
           },
           "configurations": {
             "production": {
