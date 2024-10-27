@@ -31,11 +31,7 @@ export class AiServicesComponent implements OnInit {
         {
             route: '/ai-service/ai-chat-bot',
             title: 'Chat Bot',
-        },
-        {
-            route: '',
-            title: 'Chat Bot',
-        },
+        }
     ];
 
     constructor() {
