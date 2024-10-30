@@ -8,7 +8,7 @@ import { finalize, Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class AiSpeechToTextService extends ApiServiceBaseModel {
-    override tag: string = 'common/';
+    override tag: string = '';
     protected override http: HttpClient = inject(HttpClient);
     constructor() {
         super('speech');

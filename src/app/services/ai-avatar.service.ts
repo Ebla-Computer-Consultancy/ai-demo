@@ -8,7 +8,7 @@ import { StreamResult } from '../models/stream-result';
 })
 export class AiAvatarService extends ApiServiceBaseModel {
     protected override http: HttpClient = inject(HttpClient);
-    tag: string = 'common/';
+    tag: string = '';
 
     constructor() {
         super('avatar');

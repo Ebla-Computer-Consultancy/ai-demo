@@ -10,7 +10,7 @@ import { Message } from '../models/message';
     providedIn: 'root',
 })
 export class AiChatBotService extends ApiServiceBaseModel {
-    override tag: string = 'website/';
+    override tag: string = 'chatbot/';
     protected override http: HttpClient = inject(HttpClient);
     messageHistory: Message[] = [];
     constructor() {
@@ -31,7 +31,7 @@ export class AiChatBotService extends ApiServiceBaseModel {
         this.startLoading();
         return this.http
             .post<IChatMessageResult>(
-                this.baseUrl,
+                this.baseUrl + '/chat',
                 { messages: this.messageHistory, stream_id },
                 {
                     headers: new HttpHeaders({
